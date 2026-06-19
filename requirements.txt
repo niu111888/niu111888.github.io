@@ -1,0 +1,5 @@
+# Niu株式会社サイト 開発に必要な Python ライブラリ
+# インストール: pip3 install -r requirements.txt
+
+# ロゴ画像の背景透過・切り抜き加工に使用
+pillow>=10
