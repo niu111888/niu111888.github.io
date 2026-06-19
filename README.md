@@ -225,6 +225,7 @@ git clone https://github.com/niu111888/niu111888.github.io.git
 
 - 2026-06-18: 初期構築。`index.html` 作成、4サービス掲載、蝶アニメーション実装、ロゴを透過切り抜きして設定。引き継ぎ用に本 README・`requirements.txt`・`tools/cutout_logo.py` を追加。
 - 2026-06-18: デザイン作り込み。「AIっぽさ」低減のため**絵文字を全廃**し、サービスごとに自作SVGラインアイコンを設置。**オープニング演出**（蝶がパタパタ→上へ舞ってフェードアウトするプリローダー）を追加。アニメーション増量（見出しのグラデ光沢、装飾線が伸びる、アイコン浮遊、装飾蝶の追加）。`prefers-reduced-motion` 配慮済み。依存ライブラリの追加なし。
+- 2026-06-19: アニメ追加。**サービスを横に流れるマーキー化**（`.cards-track` を `marquee` で自動スクロール、両端フェード、JSでカード複製しシームレスループ）。**ホバー（選択）でスクロール停止＋カード拡大(scale 1.07)＋影/枠強調**で見やすく。**マウスカーソルを花びら画像 `cursor-petal.png`（Pillow生成）に変更**（入力欄はテキストカーソル維持）。`prefers-reduced-motion` 時はマーキー停止＝折返しグリッド表示＋カード複製なし。
 - 2026-06-19: **独自ドメイン `niu2025.com` を接続**（お名前.com取得）。DNS=ルートにA4件(185.199.108〜111.153)＋`www`にCNAME(`niu111888.github.io`)、ネームサーバーは 01〜04.dnsv.jp。GitHub側は `CNAME` ファイル（`niu2025.com`）＋Pagesカスタムドメイン設定＋**HTTPS強制(ON)**。証明書approved、`https://niu2025.com/` 200・`www`→ルート301を確認。OGPの `og:url`/`og:image` を `https://niu2025.com/...` に更新。
 - 2026-06-19: **GitHub Pages で公開（ローンチ）**。Git初期化→公開リポジトリ `niu111888/niu111888.github.io` を作成→push→Pages有効化。**公開URL: <https://niu111888.github.io/>**（HTML・画像・privacy すべて200で配信確認）。OGPの `og:url`/`og:image` を絶対URL化。一時ファイル（`prev_*.png`/`logo_new.png`）は `.gitignore` で除外。今後の更新は「編集→`git push`」で自動反映。独自ドメイン接続手順はセクション12に記載。
 - 2026-06-19: **料金（プラン）セクションを削除**（ナビ・フッターの「料金」リンクも削除。`#pricing` 撤去）。**サービスに「言語学習アプリ開発」を追加**（6つ目。3言語の `svc.app.*`／会社概要 `comp.v.biz`／問い合わせ項目 `form.optApp` に反映、`services.lead` を「6つの領域」に）。
