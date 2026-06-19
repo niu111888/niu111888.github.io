@@ -182,10 +182,13 @@ python3 tools/cutout_logo.py 新しいロゴ.png logo.png
 
 ## 12. 公開状況・更新方法（GitHub Pages）
 
-**✅ 公開済み（2026-06-19）**
-- **公開URL: <https://niu111888.github.io/>**
+**✅ 公開済み（2026-06-19）/ 独自ドメイン接続済み（2026-06-19）**
+- **本番URL: <https://niu2025.com/>**（HTTPS有効・お名前.com取得ドメイン）
+- `www.niu2025.com` → `niu2025.com` に自動リダイレクト
+- 旧URL <https://niu111888.github.io/> も同じ中身で有効
 - リポジトリ: <https://github.com/niu111888/niu111888.github.io>（GitHubアカウント `niu111888`、Public）
-- 仕組み: GitHub Pages（`main` ブランチ直下を配信）。`index.html` がリポジトリ直下にある構成。
+- 仕組み: GitHub Pages（`main` ブランチ直下を配信）。`index.html` がリポジトリ直下。カスタムドメインは `CNAME` ファイル（中身 `niu2025.com`）で指定。
+- DNS（お名前.com・ネームサーバー 01〜04.dnsv.jp）: ルート `niu2025.com` に A 4件（185.199.108〜111.153）、`www` に CNAME `niu111888.github.io`
 
 ### サイトを更新する方法（これが基本）
 ファイルを編集したら、このフォルダ内で:
@@ -222,6 +225,7 @@ git clone https://github.com/niu111888/niu111888.github.io.git
 
 - 2026-06-18: 初期構築。`index.html` 作成、4サービス掲載、蝶アニメーション実装、ロゴを透過切り抜きして設定。引き継ぎ用に本 README・`requirements.txt`・`tools/cutout_logo.py` を追加。
 - 2026-06-18: デザイン作り込み。「AIっぽさ」低減のため**絵文字を全廃**し、サービスごとに自作SVGラインアイコンを設置。**オープニング演出**（蝶がパタパタ→上へ舞ってフェードアウトするプリローダー）を追加。アニメーション増量（見出しのグラデ光沢、装飾線が伸びる、アイコン浮遊、装飾蝶の追加）。`prefers-reduced-motion` 配慮済み。依存ライブラリの追加なし。
+- 2026-06-19: **独自ドメイン `niu2025.com` を接続**（お名前.com取得）。DNS=ルートにA4件(185.199.108〜111.153)＋`www`にCNAME(`niu111888.github.io`)、ネームサーバーは 01〜04.dnsv.jp。GitHub側は `CNAME` ファイル（`niu2025.com`）＋Pagesカスタムドメイン設定＋**HTTPS強制(ON)**。証明書approved、`https://niu2025.com/` 200・`www`→ルート301を確認。OGPの `og:url`/`og:image` を `https://niu2025.com/...` に更新。
 - 2026-06-19: **GitHub Pages で公開（ローンチ）**。Git初期化→公開リポジトリ `niu111888/niu111888.github.io` を作成→push→Pages有効化。**公開URL: <https://niu111888.github.io/>**（HTML・画像・privacy すべて200で配信確認）。OGPの `og:url`/`og:image` を絶対URL化。一時ファイル（`prev_*.png`/`logo_new.png`）は `.gitignore` で除外。今後の更新は「編集→`git push`」で自動反映。独自ドメイン接続手順はセクション12に記載。
 - 2026-06-19: **料金（プラン）セクションを削除**（ナビ・フッターの「料金」リンクも削除。`#pricing` 撤去）。**サービスに「言語学習アプリ開発」を追加**（6つ目。3言語の `svc.app.*`／会社概要 `comp.v.biz`／問い合わせ項目 `form.optApp` に反映、`services.lead` を「6つの領域」に）。
 - 2026-06-19: 蝶を「二枚の翅でパタパタ＋奥の翅は切れない」に。奥の翅(`wing-up`＝開いた葉形で、手前に隠れる部分の線が無い)が切れていた原因に対し、**奥の翅の回転支点をその“開いた端＝付け根”(`transform-origin:59% 37%`)に設定**。支点は動かないので開いた端は胴体・手前翅の後ろに隠れたまま→露出せず切れない。手前の翅(`wing-low`)も付け根支点で逆向きに羽ばたき、二枚が開閉する。`flapUp` 0↔-6deg / `flapLow` 0↔+7deg、重なり順は 奥(wing-up)→手前(wing-low)→胴体(body)。中立=元ロゴと完全一致。
