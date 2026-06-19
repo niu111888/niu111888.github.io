@@ -225,6 +225,7 @@ git clone https://github.com/niu111888/niu111888.github.io.git
 
 - 2026-06-18: 初期構築。`index.html` 作成、4サービス掲載、蝶アニメーション実装、ロゴを透過切り抜きして設定。引き継ぎ用に本 README・`requirements.txt`・`tools/cutout_logo.py` を追加。
 - 2026-06-18: デザイン作り込み。「AIっぽさ」低減のため**絵文字を全廃**し、サービスごとに自作SVGラインアイコンを設置。**オープニング演出**（蝶がパタパタ→上へ舞ってフェードアウトするプリローダー）を追加。アニメーション増量（見出しのグラデ光沢、装飾線が伸びる、アイコン浮遊、装飾蝶の追加）。`prefers-reduced-motion` 配慮済み。依存ライブラリの追加なし。
+- 2026-06-19: **スマホ：タップした場所にお花が咲く演出**を追加（`.tap-flower`＋`tapBloom`、`pointerup`(touch)でタップ判定＝移動12px未満・500ms以内のみ生成しスクロールは除外、`prefers-reduced-motion`時は無効）。**携帯版を一通り検証**（横はみ出し無し・エラー無し・ハンバーガー開閉・サービスのマーキー1枚表示＆タップ拡大・FAQ開閉・フォーム正常）。
 - 2026-06-19: サービスのマーキーを**スマホでは減速**（`@media(max-width:720px)` で `animation-duration:95s`）。**カードをタップ/クリックで「選択」＝拡大して読める**（`.card.active`、JSで `#svcTrack` のクリックに反応し他カードは解除＋トラックを `.paused`、カード外タップで解除）。**ヘッダーのロゴの蝶も羽ばたき化**：静的 `logo-mark.png` をやめ、`logo-N`＋`wing-up/wing-low/bfly-body` を `.brand-mark`（`overflow:hidden`で上部マークのみ表示）に重ね、ヒーローと同じ `flapLow`（奥翅固定・手前翅のみ・切れない）を適用。
 - 2026-06-19: カーソルを**小さなお花**に変更し高解像度化。`flower-cursor.png`(36px)＋`flower-cursor-2x.png`(72px) をPillowで生成し、CSS `image-set(... 1x, ... 2x)`（`-webkit-` 併記＋url()フォールバック）でRetinaでもくっきり表示。ホットスポットは中心(16,16)。旧 `cursor-petal.png` は未使用。
 - 2026-06-19: アニメ追加。**サービスを横に流れるマーキー化**（`.cards-track` を `marquee` で自動スクロール、両端フェード、JSでカード複製しシームレスループ）。**ホバー（選択）でスクロール停止＋カード拡大(scale 1.07)＋影/枠強調**で見やすく。**マウスカーソルを花びら画像 `cursor-petal.png`（Pillow生成）に変更**（入力欄はテキストカーソル維持）。`prefers-reduced-motion` 時はマーキー停止＝折返しグリッド表示＋カード複製なし。
