@@ -180,38 +180,37 @@ python3 tools/cutout_logo.py 新しいロゴ.png logo.png
 
 ---
 
-## 12. 公開手順（GitHub Pages）
+## 12. 公開状況・更新方法（GitHub Pages）
 
-このサイトは静的サイトなので、GitHub Pages で無料公開できます。
+**✅ 公開済み（2026-06-19）**
+- **公開URL: <https://niu111888.github.io/>**
+- リポジトリ: <https://github.com/niu111888/niu111888.github.io>（GitHubアカウント `niu111888`、Public）
+- 仕組み: GitHub Pages（`main` ブランチ直下を配信）。`index.html` がリポジトリ直下にある構成。
 
-### 初回セットアップ
-1. GitHub アカウントを用意（無ければ <https://github.com/> で作成）
-2. 新しいリポジトリを作成（例：`niu-site`）。Public を選択
-3. このフォルダを Git 化して push（ターミナルでフォルダ内にて）:
-   ```bash
-   git init
-   git add .
-   git commit -m "Niu株式会社サイト 公開版"
-   git branch -M main
-   git remote add origin https://github.com/＜ユーザー名＞/niu-site.git
-   git push -u origin main
-   ```
-   ※ `index.html` がリポジトリ直下にあること（このフォルダ構成のままでOK）
-4. GitHub のリポジトリ画面 → **Settings → Pages** を開く
-5. 「Build and deployment」の Source を **Deploy from a branch**、Branch を **main / (root)** にして Save
-6. 数分待つと `https://＜ユーザー名＞.github.io/niu-site/` で公開されます
-
-### 更新方法（2回目以降）
-ファイルを編集したら、フォルダ内で:
+### サイトを更新する方法（これが基本）
+ファイルを編集したら、このフォルダ内で:
 ```bash
-git add .
+git add -A
 git commit -m "更新内容のメモ"
 git push
 ```
-push するだけで数分後に自動反映されます。
+push するだけで、数分後に <https://niu111888.github.io/> に自動反映されます。
 
-### 独自ドメイン（任意）
-会社ドメイン（例 `niu.co.jp`）で公開したい場合は、ドメインを取得し、Settings → Pages の「Custom domain」に設定 ＋ ドメイン側のDNSを設定します。必要になったら手順を追記します。
+### 別のPCで続きを開発するとき（移行）
+```bash
+git clone https://github.com/niu111888/niu111888.github.io.git
+```
+で丸ごと取得できます（GitHubが最新の保管場所）。フォルダコピーでも可。
+
+### 独自ドメインを接続する手順（取得後）
+会社ドメイン（例 `niu.co.jp` や `niu.com`）で公開したくなったら:
+1. ドメインを取得（お名前.com / Cloudflare / Google Domains 等）
+2. **ドメイン側のDNS**を設定:
+   - サブドメイン（例 `www.niu.com`）→ CNAME を `niu111888.github.io` に向ける
+   - ルート（例 `niu.com`）→ A レコードを GitHub Pages の4つのIP（`185.199.108.153` / `.109.153` / `.110.153` / `.111.153`）に向ける
+3. リポジトリ → **Settings → Pages → Custom domain** にドメインを入力して Save（リポジトリ直下に `CNAME` ファイルが作られる）
+4. 「Enforce HTTPS」にチェック（証明書発行に数十分かかることあり）
+5. `index.html` の OGP（`og:url` / `og:image`）を新ドメインの絶対URLに変更して push
 
 > 補足：お問い合わせフォームは「送信＝メール作成画面が開く」方式（サーバー不要）。GitHub Pages は静的サイト専用のため、フォームを自動送信・自動保存にしたい場合は Formspree 等の外部サービス連携が別途必要です。
 
@@ -223,6 +222,7 @@ push するだけで数分後に自動反映されます。
 
 - 2026-06-18: 初期構築。`index.html` 作成、4サービス掲載、蝶アニメーション実装、ロゴを透過切り抜きして設定。引き継ぎ用に本 README・`requirements.txt`・`tools/cutout_logo.py` を追加。
 - 2026-06-18: デザイン作り込み。「AIっぽさ」低減のため**絵文字を全廃**し、サービスごとに自作SVGラインアイコンを設置。**オープニング演出**（蝶がパタパタ→上へ舞ってフェードアウトするプリローダー）を追加。アニメーション増量（見出しのグラデ光沢、装飾線が伸びる、アイコン浮遊、装飾蝶の追加）。`prefers-reduced-motion` 配慮済み。依存ライブラリの追加なし。
+- 2026-06-19: **GitHub Pages で公開（ローンチ）**。Git初期化→公開リポジトリ `niu111888/niu111888.github.io` を作成→push→Pages有効化。**公開URL: <https://niu111888.github.io/>**（HTML・画像・privacy すべて200で配信確認）。OGPの `og:url`/`og:image` を絶対URL化。一時ファイル（`prev_*.png`/`logo_new.png`）は `.gitignore` で除外。今後の更新は「編集→`git push`」で自動反映。独自ドメイン接続手順はセクション12に記載。
 - 2026-06-19: **料金（プラン）セクションを削除**（ナビ・フッターの「料金」リンクも削除。`#pricing` 撤去）。**サービスに「言語学習アプリ開発」を追加**（6つ目。3言語の `svc.app.*`／会社概要 `comp.v.biz`／問い合わせ項目 `form.optApp` に反映、`services.lead` を「6つの領域」に）。
 - 2026-06-19: 蝶を「二枚の翅でパタパタ＋奥の翅は切れない」に。奥の翅(`wing-up`＝開いた葉形で、手前に隠れる部分の線が無い)が切れていた原因に対し、**奥の翅の回転支点をその“開いた端＝付け根”(`transform-origin:59% 37%`)に設定**。支点は動かないので開いた端は胴体・手前翅の後ろに隠れたまま→露出せず切れない。手前の翅(`wing-low`)も付け根支点で逆向きに羽ばたき、二枚が開閉する。`flapUp` 0↔-6deg / `flapLow` 0↔+7deg、重なり順は 奥(wing-up)→手前(wing-low)→胴体(body)。中立=元ロゴと完全一致。
 - 2026-06-19: 蝶の羽ばたきを物理的に正しく修正（旧版）。`wing-up`（オレンジ＋灰＝奥の翅）は**手前に隠れる部分の線が元々無い**ため動かすと端が露出して切れて見えていた。対策として **重なり順を奥→手前（wing-up → wing-low → body）に修正し、奥の翅(wing-up)は固定**、線が完結している**手前の翅(wing-low)だけを羽ばたかせる**(`flapLow` 0deg↔-8deg)。これで「奥の翅が手前に出る」「奥の翅が切れる」を両方解消。ヒーロー/オープニング共通。
