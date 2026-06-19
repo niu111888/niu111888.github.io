@@ -37,6 +37,11 @@
       cursor: image-set(url('flower-cursor.png') 1x, url('flower-cursor-2x.png') 2x) 16 16, pointer;
     }
     input, textarea { cursor: text; }
+    /* タップした場所に咲くお花（スマホ用） */
+    .tap-flower { position: fixed; width: 42px; height: 42px; margin: -21px 0 0 -21px; pointer-events: none; z-index: 9000;
+      background: url('flower-cursor-2x.png') center/contain no-repeat; will-change: transform, opacity;
+      animation: tapBloom .7s ease-out forwards; }
+    @keyframes tapBloom { 0% { transform: scale(.2) rotate(-10deg); opacity: 0; } 30% { opacity: .95; } 100% { transform: scale(1.5) rotate(35deg); opacity: 0; } }
     .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 
     /* ボタン内の白蝶の羽ばたき */
@@ -794,6 +799,27 @@
           track.classList.remove('paused');
         }
       });
+    })();
+
+    // スマホ：タップした場所にお花が咲く（スクロールでは出さない）
+    (() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      let sx = 0, sy = 0, st = 0;
+      addEventListener('pointerdown', (e) => {
+        if (e.pointerType !== 'touch') return;
+        sx = e.clientX; sy = e.clientY; st = Date.now();
+      }, { passive: true });
+      addEventListener('pointerup', (e) => {
+        if (e.pointerType !== 'touch') return;
+        if (Date.now() - st > 500) return;                       // 長押しは除外
+        if (Math.hypot(e.clientX - sx, e.clientY - sy) > 12) return; // スクロールは除外
+        const f = document.createElement('span');
+        f.className = 'tap-flower';
+        f.style.left = e.clientX + 'px';
+        f.style.top = e.clientY + 'px';
+        document.body.appendChild(f);
+        setTimeout(() => f.remove(), 720);
+      }, { passive: true });
     })();
 
     // 舞う花びら（透明度高め）を生成
